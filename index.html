@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tuyển Công Nhân KCN Bắc Ninh</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1 class="title">Tuyển Công Nhân KCN Bắc Ninh</h1>
+
+    <section class="jobs-section">
+      <h2>Danh sách nhà máy tuyển dụng</h2>
+      <div class="jobs-grid" id="jobs-grid"></div>
+    </section>
+
+    <section class="contact-section">
+      <h2>Để lại thông tin liên hệ</h2>
+      <form id="contact-form">
+        <input type="text" name="name" placeholder="Họ và tên" required>
+        <input type="tel" name="phone" placeholder="Số điện thoại" required>
+        <input type="email" name="email" placeholder="Email (tùy chọn)">
+        <textarea name="message" placeholder="Ghi chú / kinh nghiệm"></textarea>
+        <button type="submit">Gửi thông tin</button>
+      </form>
+      <p id="success-msg"></p>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
