@@ -1,27 +1,38 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <title>Test Form Web3Forms</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tuyển Công Nhân Bắc Ninh</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<h2>TEST FORM WEB3FORMS</h2>
+    <div class="container">
+        <h2>Đăng ký tuyển dụng</h2>
+        <p>Điền thông tin bên dưới, chúng tôi sẽ liên hệ ngay.</p>
 
-<form action="https://api.web3forms.com/submit" method="POST">
-  
-  <!-- ACCESS KEY của bạn -->
-  <input type="hidden" name="access_key" value="5dd63054-de7a-4eaf-a9aa-b25bd8f11180">
+        <form id="form" method="POST">
+            <input type="hidden" name="access_key" value="5dd63054-de7a-4eaf-a9aa-b25bd8f11180">
 
-  <label>Họ tên</label><br>
-  <input type="text" name="name" required><br><br>
+            <label>Họ và tên</label>
+            <input type="text" name="name" required placeholder="Nhập họ tên">
 
-  <label>Số điện thoại</label><br>
-  <input type="text" name="phone" required><br><br>
+            <label>Số điện thoại</label>
+            <input type="text" name="phone" required placeholder="Nhập số điện thoại">
 
-  <button type="submit">Gửi thử</button>
+            <label>Địa chỉ</label>
+            <input type="text" name="address" required placeholder="Địa chỉ của bạn">
 
-</form>
+            <label>Ghi chú (nếu có)</label>
+            <textarea name="message" placeholder="Ví dụ: Muốn đi làm ngay"></textarea>
 
+            <button type="submit">Gửi đăng ký</button>
+        </form>
+
+        <p id="result"></p>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
