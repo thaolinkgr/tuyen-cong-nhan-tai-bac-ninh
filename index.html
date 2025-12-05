@@ -1,38 +1,86 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tuyển Công Nhân Bắc Ninh</title>
-    <link rel="stylesheet" href="style.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tuyển Công Nhân KCN Bắc Ninh</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-    <div class="container">
-        <h2>Đăng ký tuyển dụng</h2>
-        <p>Điền thông tin bên dưới, chúng tôi sẽ liên hệ ngay.</p>
-
-        <form id="form" method="POST">
-            <input type="hidden" name="access_key" value="5dd63054-de7a-4eaf-a9aa-b25bd8f11180">
-
-            <label>Họ và tên</label>
-            <input type="text" name="name" required placeholder="Nhập họ tên">
-
-            <label>Số điện thoại</label>
-            <input type="text" name="phone" required placeholder="Nhập số điện thoại">
-
-            <label>Địa chỉ</label>
-            <input type="text" name="address" required placeholder="Địa chỉ của bạn">
-
-            <label>Ghi chú (nếu có)</label>
-            <textarea name="message" placeholder="Ví dụ: Muốn đi làm ngay"></textarea>
-
-            <button type="submit">Gửi đăng ký</button>
-        </form>
-
-        <p id="result"></p>
+  <header class="topbar">
+    <div class="wrap">
+      <h1 class="brand">Tuyển Công Nhân - KCN Bắc Ninh</h1>
+      <p class="tagline">Cập nhật nhanh các tin tuyển dụng công nhân tại các khu công nghiệp</p>
     </div>
+  </header>
 
-    <script src="script.js"></script>
+  <main class="wrap">
+    <!-- Search & Filters -->
+    <section class="search-panel">
+      <input id="search-input" type="search" placeholder="Tìm theo công ty, vị trí, từ khóa..." />
+      <select id="filter-kcn">
+        <option value="">-- Lọc theo KCN (Tất cả) --</option>
+        <option value="KCN Yên Phong">KCN Yên Phong</option>
+        <option value="KCN Quế Võ">KCN Quế Võ</option>
+        <option value="KCN Tiên Sơn">KCN Tiên Sơn</option>
+        <option value="KCN VSIP">KCN VSIP</option>
+      </select>
+      <button id="btn-refresh">Tải lại</button>
+    </section>
+
+    <!-- Jobs grid -->
+    <section>
+      <h2 class="section-title">Tin tuyển mới</h2>
+      <div id="jobs-grid" class="jobs-grid"></div>
+      <div id="no-results" class="no-results" hidden>Không tìm thấy tin nào.</div>
+    </section>
+
+    <!-- Pagination (simple) -->
+    <nav id="pagination" class="pagination" hidden></nav>
+
+    <!-- Contact / Apply form -->
+    <aside class="contact-box" id="contact-box">
+      <h3>Để lại thông tin — chúng tôi sẽ liên hệ</h3>
+
+      <form id="apply-form" method="POST">
+        <input type="hidden" name="access_key" value="5dd63054-de7a-4eaf-a9aa-b25bd8f11180">
+        <input type="hidden" name="subject" value="Ứng viên - Tuyển công nhân KCN Bắc Ninh">
+
+        <label>Họ và tên</label>
+        <input name="name" required placeholder="Họ và tên" />
+
+        <label>Số điện thoại</label>
+        <input name="phone" required placeholder="Số điện thoại" />
+
+        <label>Email (tùy chọn)</label>
+        <input type="email" name="email" placeholder="Email" />
+
+        <label>Ứng tuyển vị trí / Ghi chú</label>
+        <textarea name="message" placeholder="Ví dụ: muốn làm vị trí..., kinh nghiệm..."></textarea>
+
+        <button type="submit">Gửi thông tin</button>
+        <p id="form-result" class="form-result"></p>
+      </form>
+    </aside>
+  </main>
+
+  <!-- Modal job detail -->
+  <div id="job-modal" class="modal" hidden>
+    <div class="modal-inner">
+      <button class="modal-close" id="modal-close">&times;</button>
+      <div id="job-detail"></div>
+      <div class="modal-actions">
+        <button id="modal-apply">Ứng tuyển (đến form)</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="wrap">
+      <p>© <span id="year"></span> Tuyển công nhân KCN Bắc Ninh — Liên hệ: <a href="mailto:example@example.com">example@example.com</a></p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
