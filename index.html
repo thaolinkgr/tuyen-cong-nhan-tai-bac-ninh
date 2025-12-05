@@ -1,33 +1,50 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tuyển Công Nhân KCN Bắc Ninh</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tuyển Công Nhân KCN Bắc Ninh</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <h1 class="title">Tuyển Công Nhân KCN Bắc Ninh</h1>
 
-    <section class="jobs-section">
-      <h2>Danh sách nhà máy tuyển dụng</h2>
-      <div class="jobs-grid" id="jobs-grid"></div>
-    </section>
+    <div class="container">
 
-    <section class="contact-section">
-      <h2>Để lại thông tin liên hệ</h2>
-      <form id="contact-form">
-        <input type="text" name="name" placeholder="Họ và tên" required>
-        <input type="tel" name="phone" placeholder="Số điện thoại" required>
-        <input type="email" name="email" placeholder="Email (tùy chọn)">
-        <textarea name="message" placeholder="Ghi chú / kinh nghiệm"></textarea>
-        <button type="submit">Gửi thông tin</button>
-      </form>
-      <p id="success-msg"></p>
-    </section>
-  </div>
+        <h1 class="title">Tuyển Công Nhân Các KCN Tại Bắc Ninh</h1>
+        <p class="subtitle">Điền thông tin bên dưới để được liên hệ sớm nhất</p>
 
-  <script src="script.js"></script>
+        <!-- FORM WEB3FORMS -->
+        <form id="form" action="https://api.web3forms.com/submit" method="POST">
+
+            <!-- Bắt buộc -->
+            <input type="hidden" name="access_key" value="5dd63054-de7a-4eaf-a9aa-b25bd8f11180">
+            <input type="hidden" name="subject" value="Ứng viên mới từ Website tuyển công nhân">
+
+            <label>Họ và tên</label>
+            <input type="text" name="name" required>
+
+            <label>Số điện thoại</label>
+            <input type="text" name="phone" required>
+
+            <label>Khu công nghiệp muốn ứng tuyển</label>
+            <select name="location">
+                <option value="Yên Phong">KCN Yên Phong</option>
+                <option value="Quế Võ">KCN Quế Võ</option>
+                <option value="Tiên Sơn">KCN Tiên Sơn</option>
+                <option value="VSIP">KCN VSIP</option>
+                <option value="Khác">Khác</option>
+            </select>
+
+            <label>Ghi chú</label>
+            <textarea name="message" placeholder="Ví dụ: kinh nghiệm, ca làm mong muốn..."></textarea>
+
+            <button type="submit">Gửi thông tin</button>
+        </form>
+
+        <p id="result"></p>
+
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
