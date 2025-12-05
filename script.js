@@ -1,28 +1,31 @@
 const form = document.getElementById("form");
 const result = document.getElementById("result");
 
-form.addEventListener("submit", async (e) => {
+form.addEventListener("submit", async function (e) {
     e.preventDefault();
 
-    result.innerHTML = "Đang gửi...";
-    result.style.color = "black";
+    result.textContent = "Đang gửi ...";
 
     const formData = new FormData(form);
 
-    const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        body: formData
-    });
+    try {
+        const response = await fetch("https://api.web3forms.com/submit", {
+            method: "POST",
+            body: formData
+        });
 
-    const data = await response.json();
+        const data = await response.json();
 
-    if (response.ok) {
-        result.style.color = "green";
-        result.innerHTML = "Gửi thành công! Chúng tôi sẽ liên hệ sớm.";
-        form.reset();
-    } 
-    else {
+        if (data.success) {
+            result.style.color = "green";
+            result.textContent = "Gửi thành công! Chúng tôi sẽ liên hệ bạn sớm.";
+            form.reset();
+        } else {
+            result.style.color = "red";
+            result.textContent = "Gửi thất bại. Vui lòng thử lại!";
+        }
+    } catch (error) {
         result.style.color = "red";
-        result.innerHTML = "Gửi thất bại: " + data.message;
+        result.textContent = "Lỗi kết nối. Thử lại!";
     }
 });
