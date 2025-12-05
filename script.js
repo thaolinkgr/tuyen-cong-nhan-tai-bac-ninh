@@ -2,7 +2,7 @@
 const WEB3FORMS_KEY = "5dd63054-de7a-4eaf-a9aa-b25bd8f11180";
 // Nếu muốn lấy dữ liệu từ Google Sheet, đặt URL CSV ở đây.
 // Ví dụ: "https://docs.google.com/spreadsheets/d/SHEET_ID/export?format=csv&gid=0"
-const SHEET_CSV_URL = ""; // <-- dán CSV URL nếu bạn publish Google Sheet
+const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSLzsDmqxB2H8UQ83GxI4zcVcHi2gpwh-5eQXDZY9yQP24n-ILaJla1Juxy3BnE-7PoeVJKVPVPzvtC/pub?gid=0&single=true&output=csv"; // <-- dán CSV URL nếu bạn publish Google Sheet
 // Số job hiển thị trang 1 (pagination simple)
 const PAGE_SIZE = 12;
 // ------------------------------------------------
@@ -227,3 +227,4 @@ applyForm.addEventListener('submit', async function(e){
 // init
 document.getElementById('year').textContent = new Date().getFullYear();
 loadJobs();
+
