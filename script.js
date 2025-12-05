@@ -46,21 +46,31 @@ window.addEventListener('load', () => {
 });
 
 // ---------------- CSV parsing (if used) ----------------
-function parseCSV(csv){
-  const lines = csv.trim().split(/\r?\n/);
-  if(lines.length < 2) return [];
-  const headers = lines[0].split(",").map(h => h.trim());
-  const rows = lines.slice(1);
-  return rows.map(r => {
-    const values = r.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g) || [];
-    return headers.reduce((obj, h, i) => {
-      let v = values[i] || "";
-      v = v.replace(/^"|"$/g,"").trim();
-      obj[h] = v;
-      return obj;
-    }, {});
-  });
+// ---------------- CSV/TSV parser TỰ NHẬN DELIMITER ----------------
+function parseCSV(text) {
+  const lines = text.trim().split(/\r?\n/);
+
+  if (lines.length < 2) return [];
+
+  // Tự động nhận dạng dấu phân cách: Tab hoặc Phẩy
+  const delimiter = lines[0].includes("\t") ? "\t" : ",";
+
+  const headers = lines[0].split(delimiter).map(h => h.trim());
+  const rows = [];
+
+  for (let i = 1; i < lines.length; i++) {
+    const cols = lines[i].split(delimiter).map(c => c.trim());
+    const rowObj = {};
+
+    headers.forEach((h, idx) => {
+      rowObj[h] = cols[idx] || "";
+    });
+
+    rows.push(rowObj);
+  }
+  return rows;
 }
+
 
 // ---------------- Load jobs (sheet or sample) ----------------
 // ---------------- Load jobs (sheet or sample) ----------------
@@ -74,14 +84,16 @@ async function loadJobs() {
       const csvData = parseCSV(text);
 
       allJobs = csvData.map(row => ({
-        company:     row.company     || row.Company     || row.Tên        || "",
-        position:    row.position    || row.Position    || row.Vị_trí     || "",
-        location:    row.location    || row.Location    || row.Địa_điểm   || "",
-        description: row.description || row.Description || row.Mô_tả       || "",
-        salary:      row.salary      || row.Salary      || row.Lương      || "",
+        company:     row.company     || row.Company     || row.Tên         || "",
+        position:    row.position    || row.Position    || row.Vị_trí      || "",
+        location:    row.location    || row.Location    || row.Địa_điểm    || "",
+        description: row.description || row.Description || row.Mô_tả        || "",
+        salary:      row.salary      || row.Salary      || row.Lương       || "",
         kcn:         row.kcn         || row.KCN         || row.location    || "",
         contact:     row.contact     || row.Contact     || ""
       }));
+
+      console.log("Loaded rows:", allJobs);
 
     } catch (err) {
       console.warn("Không lấy được CSV, dùng dữ liệu mẫu.", err);
@@ -252,4 +264,5 @@ applyForm?.addEventListener('submit', async function(e){
 // ---------------- Init ----------------
 document.getElementById('year').textContent = new Date().getFullYear();
 loadJobs();
+
 
