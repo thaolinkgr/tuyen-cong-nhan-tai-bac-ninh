@@ -63,33 +63,40 @@ function parseCSV(csv){
 }
 
 // ---------------- Load jobs (sheet or sample) ----------------
-async function loadJobs(){
-  if(SHEET_CSV_URL){
-    try{
+// ---------------- Load jobs (sheet or sample) ----------------
+async function loadJobs() {
+  if (SHEET_CSV_URL) {
+    try {
       const res = await fetch(SHEET_CSV_URL);
-      if(!res.ok) throw new Error("CSV fetch failed: " + res.status);
+      if (!res.ok) throw new Error("CSV fetch failed: " + res.status);
+
       const text = await res.text();
       const csvData = parseCSV(text);
+
       allJobs = csvData.map(row => ({
-        company: row.company || row.Company || row.Tên || "",
-        position: row.position || row.Position || row.Vị_trí || row.position,
-        location: row.location || row.Location || row.Địa_điểm || row.location,
-        description: row.description || row.Description || row.Mô_tả || row.description,
-        salary: row.salary || row.Salary || row.Lương || "",
-        kcn: row.kcn || row.KCN || row.kcn || (row.location || ""),
-        contact: row.contact || row.Contact || ""
+        company:     row.company     || row.Company     || row.Tên        || "",
+        position:    row.position    || row.Position    || row.Vị_trí     || "",
+        location:    row.location    || row.Location    || row.Địa_điểm   || "",
+        description: row.description || row.Description || row.Mô_tả       || "",
+        salary:      row.salary      || row.Salary      || row.Lương      || "",
+        kcn:         row.kcn         || row.KCN         || row.location    || "",
+        contact:     row.contact     || row.Contact     || ""
       }));
-    }catch(err){
+
+    } catch (err) {
       console.warn("Không lấy được CSV, dùng dữ liệu mẫu.", err);
       allJobs = SAMPLE_JOBS.slice();
     }
+
   } else {
     allJobs = SAMPLE_JOBS.slice();
   }
+
   filtered = allJobs.slice();
   currentPage = 1;
   renderJobsPage();
 }
+
 
 // ---------------- Render jobs ----------------
 function renderJobsPage(){
@@ -245,3 +252,4 @@ applyForm?.addEventListener('submit', async function(e){
 // ---------------- Init ----------------
 document.getElementById('year').textContent = new Date().getFullYear();
 loadJobs();
+
