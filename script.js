@@ -46,33 +46,32 @@ window.addEventListener('load', () => {
 });
 
 // ---------------- CSV parsing (if used) ----------------
-// ---------------- CSV/TSV parser TỰ NHẬN DELIMITER ----------------
+// --- PARSE GOOGLE SHEET (TSV hoặc CSV), mỗi dòng = 1 job, mỗi cột = 1 field ---
 function parseCSV(text) {
   const lines = text.trim().split(/\r?\n/);
-
   if (lines.length < 2) return [];
 
-  // Tự động nhận dạng dấu phân cách: Tab hoặc Phẩy
+  // Dòng đầu tiên là tiêu đề → xác định delimiter
   const delimiter = lines[0].includes("\t") ? "\t" : ",";
 
-  const headers = lines[0].split(delimiter).map(h => h.trim());
+  const headers = lines[0].split(delimiter).map(h => h.trim().toLowerCase());
   const rows = [];
 
   for (let i = 1; i < lines.length; i++) {
-    const cols = lines[i].split(delimiter).map(c => c.trim());
-    const rowObj = {};
+    const cols = lines[i].split(delimiter);
+    const obj = {};
 
-    headers.forEach((h, idx) => {
-      rowObj[h] = cols[idx] || "";
+    headers.forEach((h, index) => {
+      obj[h] = (cols[index] || "").trim();
     });
 
-    rows.push(rowObj);
+    rows.push(obj);
   }
+
   return rows;
 }
 
 
-// ---------------- Load jobs (sheet or sample) ----------------
 // ---------------- Load jobs (sheet or sample) ----------------
 async function loadJobs() {
   if (SHEET_CSV_URL) {
@@ -81,25 +80,24 @@ async function loadJobs() {
       if (!res.ok) throw new Error("CSV fetch failed: " + res.status);
 
       const text = await res.text();
-      const csvData = parseCSV(text);
+      const csvData = parseCSV(text); // lấy đúng từng dòng + từng cột
 
       allJobs = csvData.map(row => ({
-        company:     row.company     || row.Company     || row.Tên         || "",
-        position:    row.position    || row.Position    || row.Vị_trí      || "",
-        location:    row.location    || row.Location    || row.Địa_điểm    || "",
-        description: row.description || row.Description || row.Mô_tả        || "",
-        salary:      row.salary      || row.Salary      || row.Lương       || "",
-        kcn:         row.kcn         || row.KCN         || row.location    || "",
-        contact:     row.contact     || row.Contact     || ""
+        company:     row.company     || "",
+        position:    row.position    || "",
+        location:    row.location    || "",
+        description: row.description || "",
+        salary:      row.salary      || "",
+        kcn:         row.kcn         || row.location || "",
+        contact:     row.contact     || ""
       }));
 
-      console.log("Loaded rows:", allJobs);
+      console.log("Loaded jobs:", allJobs);
 
     } catch (err) {
-      console.warn("Không lấy được CSV, dùng dữ liệu mẫu.", err);
+      console.warn("Không lấy được CSV, dùng mẫu", err);
       allJobs = SAMPLE_JOBS.slice();
     }
-
   } else {
     allJobs = SAMPLE_JOBS.slice();
   }
@@ -264,5 +262,6 @@ applyForm?.addEventListener('submit', async function(e){
 // ---------------- Init ----------------
 document.getElementById('year').textContent = new Date().getFullYear();
 loadJobs();
+
 
 
