@@ -1,3 +1,6 @@
+/* ensure modal hidden by default */
+#job-modal { display: none !important; }
+
 :root{
   --bg:#f4f6fb;
   --card:#ffffff;
@@ -63,3 +66,4 @@ body{
 
 /* footer */
 .footer{padding:18px 0;color:var(--muted);text-align:center;margin-top:26px}
+
