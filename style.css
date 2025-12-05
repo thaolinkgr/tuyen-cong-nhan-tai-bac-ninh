@@ -25,8 +25,12 @@ body{
 .search-panel button{background:var(--primary);color:#fff;border:none;padding:10px 14px;border-radius:8px;cursor:pointer}
 
 /* grid */
-.section-title{margin:10px 0 6px;font-size:18px}
-.jobs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.jobs-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* luôn luôn 4 job mỗi hàng */
+    gap: 16px;
+}
+
 
 /* card */
 .job-card{background:var(--card);padding:14px;border-radius:12px;box-shadow:var(--shadow);border:1px solid rgba(10,20,50,0.03)}
@@ -66,4 +70,5 @@ body{
 
 /* footer */
 .footer{padding:18px 0;color:var(--muted);text-align:center;margin-top:26px}
+
 
